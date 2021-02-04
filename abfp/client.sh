@@ -27,4 +27,8 @@ sleep 1
 
 echo "THIS_IS_MY_CLASSROOM" | nc -q 1 $IP_SERVER $PORT
 
+echo "(7) Listen:"
+
+RESPONSE= `nc -l -p $PORT`
+
 exit 0

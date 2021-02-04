@@ -34,4 +34,20 @@ echo "(5) LISTEN"
 
 HANDSHAKE = `nc -l -p $PORT`
 
+echo"TESTING HANDSHAKE"
+
+if ["$HANDSHAKE" != "THIS_IS_MY_CLASSROOM"]; then
+
+	echo "ERROR: HANDSHAKE"
+	sleep 1 
+	echo "KO_HANDSHAKE" | nc -q 1 $IP_CLIENT $PORT
+fi
+
+echo "(8) Response:"
+sleep 1
+echo "YES_IT_IS" | nc -q 1 $IP_CLIENT $PORT
+
+echo "(9) LISTEN"
+FILE_NAME = `nc -l -p $PORT`
+
 exit 0
