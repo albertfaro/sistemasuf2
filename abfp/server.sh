@@ -69,12 +69,28 @@ echo "(12) FILE_NAME($NAME) RESPONSE..."
 sleep 1
 echo "OK_FILE_NAME" | nc -q l $IP_CLIENT $PORT
 
-echo "(13) Listening DATA..."
+echo "(13) LISTENING.."
 
 DATA=`nc -l -p $PORT`
 
 echo "###FILE_MD5=`md5sum input_file.vaca`####"
 nc -l -p $PORT > input_file.vaca
 echo "###md5sum####"
+
+
+FILE_NAME=`nc -l -p $PORT`
+MD5_NAME2=`echo $FILE_DATA | cut -d " " -f 3`
+
+echo "(16) RESPONSE"
+MD5_CHECK=`md5sum $NAME`
+if [ "$MD5_CHECH" != "$MD5_NAME2" ]; then
+	echo "ERROR"
+	sleep 1
+	echo "KO_DATA" | nc -q 1 $IP_CLIENTE $PORT
+	exit 3
+fi
+sleep 1
+echo "OK_DATA" | nc -q 1 $IP_CLIENTE $PORT
+
 
 exit 0
