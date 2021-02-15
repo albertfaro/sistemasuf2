@@ -58,4 +58,12 @@ echo "(14) SENDING DATA"
 sleep 1
 echo $FILE_NAME | nc -q l $IP_SERVER $PORT
 
+echo "(15) LISTEN"
+RESPONSE= `nc -l -p $PORT`
+if [ "$RESPONSE" != $OK_DATA ]; then
+	echo "ERROR"
+	exit 3
+fi
+
+
 exit 0
