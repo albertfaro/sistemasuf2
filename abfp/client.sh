@@ -31,4 +31,31 @@ echo "(7) Listen:"
 
 RESPONSE= `nc -l -p $PORT`
 
+echo "HANDSHAKE RESPPNSE"
+
+if ["$RESPONSE" != "YES_IT_IS"]; then
+	echo "Error"
+	exit 2
+fi
+
+echo "(10) Sending FILE_NAME"
+
+sleep 1
+echo "FILE_NAME $FILE_NAME" | nc -q l $IP_SERVER $PORT
+
+echo "(11) Listening FILE_NAME RESPONSE"
+FILE_NAME =`nc -l -p $PORT`
+
+echo "TEST FILE_NAME RESPONSE"
+
+if["$FILE_NAME" != "OK_FILE_NAME""]; then
+	echo "ERROR"
+	exit 3
+fi
+
+echo "(14) SENDING DATA"
+
+sleep 1
+echo $FILE_NAME | nc -q l $IP_SERVER $PORT
+
 exit 0
